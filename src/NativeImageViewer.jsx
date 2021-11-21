@@ -17,28 +17,15 @@ export class NativeImageViewer extends Component {
 
         let imageWidth = Number(imageWidthAttr.value);
         let imageHeight = Number(imageHeightAttr.value);
-        const pixelDensity = PixelRatio.get();
-        imageWidth = PixelRatio.roundToNearestPixel(imageWidth / pixelDensity);
-        imageHeight = PixelRatio.roundToNearestPixel(imageHeight / pixelDensity);
-        const scaleX = this.state.windowWidth / imageWidth;
-        const scaleY = this.state.windowHeight / imageHeight;
-        const centerOn = {
-            x: 0,
-            y: 0,
-            scale: scaleX < scaleY ? scaleX : scaleY,
-            duration: 100
-        };
-
         const imageStyle = [{ width: imageWidth, height: imageHeight }];
         const imageZoom = (
             <ImageZoom
-                cropWidth={this.state.windowWidth}
-                cropHeight={this.state.windowHeight}
+                cropWidth={imageWidth}
+                cropHeight={imageHeight}
                 imageWidth={imageWidth}
                 imageHeight={imageHeight}
                 enableCenterFocus={false}
-                minScale={0.3}
-                centerOn={centerOn}
+                minScale={1}
                 onClick={() => this.onClick()}
             >
                 {this.renderImage(imageStyle)}
